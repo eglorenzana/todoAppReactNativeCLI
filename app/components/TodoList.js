@@ -11,6 +11,9 @@ const styles = StyleSheet.create({
   }
 });
 
+const keyExtractor = function(item, index) {
+  return item.id;
+}
 
 export default function TodoList(props) {
   return (
@@ -18,6 +21,7 @@ export default function TodoList(props) {
       <FlatList
         data={props.items}
         renderItem={Todo}
+        keyExtractor={keyExtractor}
       />
     </View>
   );
