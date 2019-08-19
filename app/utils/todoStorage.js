@@ -1,5 +1,5 @@
 import * as storage from './storage';
-
+import { parseDate } from './dates';
 const TODO_LIST_KEY ='TODO_LIST_STORAGE_KEY';
 const DEFAULT_TODO_LIST = [];
 
@@ -31,6 +31,11 @@ export async function deleteItem(item) {
 }
 
 export async function getTodoList() {
-    const list = await storage.getItem(TODO_LIST_KEY);
-    return list || DEFAULT_TODO_LIST;
+    const list = await storage.getItem(TODO_LIST_KEY) || [];
+    return list.map(item => {
+      return {
+        ...item,
+        date: parseDate(item.date),
+      }
+    });
 }
