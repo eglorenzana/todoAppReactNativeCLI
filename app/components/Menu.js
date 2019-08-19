@@ -40,20 +40,21 @@ export default class Menu extends React.PureComponent {
     super(props);
     this.menu = null;
     this.buttonForMenu = React.cloneElement(this.props.triggerRenderer, {
-      onPress: this.showMenu,
+      onPress: this.showMenu.bind(this),
     });
+    this.setMenuRef = this.setMenuRef.bind(this);
   }
 
-  setMenuRef = ref => {
+  setMenuRef(ref){
     this.menu = ref;
   };
-
+  
+  showMenu() {
+    this.menu.show();
+  };
+  
   hideMenu = () => {
     this.menu.hide();
-  };
-
-  showMenu = () => {
-    this.menu.show();
   };
 
   handlePressItem = (key) => {
@@ -71,7 +72,7 @@ export default class Menu extends React.PureComponent {
       <View style={styles.container}>
         <MaterialMenu
           ref={this.setMenuRef}
-          button={<Text>some text</Text>}
+          button={ButtonForMenu}
         >
           {
             this.props.items.map(item => {
