@@ -7,22 +7,22 @@ function generateId(todoList) {
     return Math.max(...todoList.map(todo => todo.id)) + 1;
 }
 
-export function saveNewItem(item = {}) {
-    const todoList = getTodoList();
+export async function saveNewItem(item = {}) {
+    const todoList = await getTodoList();
     const newItem = { ...item, id: generateId(todoList) };
     todoList.push(newItem);
     return storage.saveItem(TODO_LIST_KEY, todoList);
 }
 
-export function updateItem(item) {
-    const todoList = getTodoList();
+export async function updateItem(item) {
+    const todoList = await getTodoList();
     const index = todoList.findIndex(todo => todo.id === item.id);
     todoList[index] = { ...todoList[index], ...item };
     return storage.saveItem(TODO_LIST_KEY, todoList);
 }
 
-export function deleteItem(item) {
-    const todoList = getTodoList();
+export async function deleteItem(item) {
+    const todoList = await getTodoList();
     const index = todoList.findIndex(todo => todo.id === item.id);
     todoList.splice(index, 1);
     if (todoList.length)
@@ -30,6 +30,7 @@ export function deleteItem(item) {
     return storage.removeItem(TODO_LIST_KEY);
 }
 
-export function getTodoList() {
-    return storage.getItem(TODO_LIST_KEY) || DEFAULT_TODO_LIST;
+export async function getTodoList() {
+    const list = await storage.getItem(TODO_LIST_KEY);
+    return list || DEFAULT_TODO_LIST;
 }

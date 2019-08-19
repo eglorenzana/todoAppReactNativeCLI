@@ -1,14 +1,3 @@
-
-
-
-import React, {Fragment} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native';
-
 import {
   createStackNavigator,
   createDrawerNavigator,
@@ -22,19 +11,29 @@ import { DrawerNavigatorConfig } from './components/Drawer';
 
 
 
-
-const Screen = () => {
-  return (
-        <View style={styles.container}>
-          <Text>Imported screen!</Text>
-        </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
+const Stacks = {}
+menuItemsKeys.forEach(key => {
+  const MainScreen = TodoMainFactory(key);
+  Stacks[key] = createStackNavigator({ // in this way, we can provide the back behaviour easily
+    TodoMain: MainScreen,
+    [SCREEN_NAME]: CreateTodoScreen,
+  }, {
+    initialRouteName: 'TodoMain',
+  });
 });
 
-export default Screen;
+
+const DrawerRoutes = Object.freeze({
+  today: Stacks.today,
+  tomorrow: Stacks.tomorrow,
+  someday: Stacks.someday,
+  completed: Stacks.completed,
+});
+
+const DrawerNavigator = createDrawerNavigator(DrawerRoutes, {
+  ...DrawerNavigatorConfig,
+  initialRouteName: 'today',
+});
+
+const AppNavigation = createAppContainer(DrawerNavigator);
+export default AppNavigation;

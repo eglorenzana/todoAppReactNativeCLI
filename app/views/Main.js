@@ -31,12 +31,18 @@ export default class TodoListView extends React.Component {
 
   constructor(props) {
     super(props);
-    const list = getTodoList()
-
     this.state = {
       filterKey: this.props.initialFilterKey,
-      items: filterItems(getTodoList(), this.props.initialFilterKey),
+      items: []
     }
+  }
+  
+  componentDidMount() {
+    getTodoList().then((todoList) => {
+      const filteredList = this.filterItems(todoList, this.props.initialFilterKey);
+      this.setState({ items: filteredList})
+    })
+    
   }
 
   filterItems = (itemList, key) => {
@@ -65,5 +71,7 @@ export default class TodoListView extends React.Component {
 }
 
 export function TodoMainFactory(filterKey) {
-  return (<TodoListView {...props} initialFilterKey={filterKey} />);
+  return function(props) {
+    return (<TodoListView {...props} initialFilterKey={filterKey} />);
+  };
 }
