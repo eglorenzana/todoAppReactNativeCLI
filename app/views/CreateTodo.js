@@ -21,21 +21,24 @@ const CreateTodo = function(props) {
   let message = '';
   let hasError = false;
   function handleSaveTodo(item) {
-    if (saveNewItem(item)) {
-      message = 'Saved';
-    } else {
-      message = 'Error while saving';
-      hasError = true;
-    }
+    saveNewItem(item).then((saved) => {
+      if (saved) {
+        message = 'Saved';
+        props.navigation.navigate('TodoMain');
+      } else {
+        message = 'Error while saving';
+        hasError = true;
+      }
+      // show message with a Toast or something like that
+    })
+
   }
-  const dateKey = props.dateKey; // this should come from navigation params: props.navigation.params.dateKey
+  const dateKey = props.dateKey;
   return (
     <View style={styles.container} >
       <TodoForm
         initialAttributes={initialPropsForKeys[dateKey]}
         onSave={handleSaveTodo}
-        message={message}
-        hasError={hasError}
       />
     </View>
   );
@@ -53,6 +56,6 @@ export default CreateTodo;
 
 
 export function CreateTodoScreen(props) { // this is connected with a navigator
-  const dateKey = props.navigator.getParam(DATE_KEY_PROP, 'today');
+  const dateKey = props.navigation.getParam(DATE_KEY_PROP, 'today');
   return (<CreateTodo {...props} dateKey={dateKey} />)
 }
