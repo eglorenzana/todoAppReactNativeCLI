@@ -1,16 +1,17 @@
 // we could avoid the dates parsing, if we trust in the data source.
-function parseDate(...date) {
+export function parseDate(...date) {
   return new Date(...date);
 }
 
 export function isDateInRange(dateValue, startDate, endDate) {
+    if (!dateValue) return true;
     const date = dateValue.getTime();
     const start = (startDate && startDate.getTime()) || 0;
     const end = (endDate && endDate.getTime()) || Infinity;
     return (start <= date && date <= end);
 }
 
-export function filterByDateRange(objList, startDate, endDate) {
+export function filterByDateRange(list, startDate, endDate) {
   return list.filter((item) => {
     return isDateInRange(item.date, startDate, endDate);
   })

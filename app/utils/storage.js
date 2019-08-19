@@ -2,7 +2,7 @@ import {AsyncStorage} from 'react-native';
 
 async function saveItem(key, item) {
   try {
-    await AsyncStorage.setItem(key, JSON.stringify(UID123_object));
+    await AsyncStorage.setItem(key, JSON.stringify(item));
     return true;
   } catch (error) {
     console.log('Error saving item', key, error);

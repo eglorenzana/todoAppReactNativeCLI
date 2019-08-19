@@ -94,6 +94,7 @@ export function filterTodoItems(list, filterObject = {}) {
     const {
         startDate,
         endDate,
+        dateBase,
         ...others
     } = filterObject;
     const filter = Object.keys(others).length ? filterTodos : filterByDateRange;
