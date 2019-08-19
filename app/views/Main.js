@@ -9,8 +9,7 @@ import { getFilterObjectForKey, filterTodoItems } from '../utils/todoListUtils';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'flex-start'
+    
   },
   filterContainer: {
 

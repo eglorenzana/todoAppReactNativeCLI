@@ -14,7 +14,6 @@ import palette from '../assets/palette';
 
 const styles = StyleSheet.create({
   drawerContent: {
-    flex: 1,
     backgroundColor: 'white'
   },
   menuItemText: {
