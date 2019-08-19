@@ -15,8 +15,18 @@ const Stacks = {}
 menuItemsKeys.forEach(key => {
   const MainScreen = TodoMainFactory(key);
   Stacks[key] = createStackNavigator({ // in this way, we can provide the back behaviour easily
-    TodoMain: MainScreen,
-    [SCREEN_NAME]: CreateTodoScreen,
+    TodoMain: {
+      screen: MainScreen,
+      navigationOptions: {
+        title: 'Todos'
+      }
+    },
+    [SCREEN_NAME]: {
+      screen: CreateTodoScreen,
+      navigationOptions: {
+        title: 'Create Todo'
+      }
+    },
   }, {
     initialRouteName: 'TodoMain',
   });

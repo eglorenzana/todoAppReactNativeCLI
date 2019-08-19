@@ -17,21 +17,9 @@ import AppNavigation from './app/Navigation';
 
 const App = () => {
   return (
-    <Fragment>
-      <SafeAreaView>
-        <View style={styles.container}>
-          <Text>Edited initial screen!</Text>
-          <AppNavigation />
-        </View>
-      </SafeAreaView>
-    </Fragment>
+    <AppNavigation />
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-});
 
 export default App;
